@@ -1,0 +1,3 @@
+rm db.sqlite3
+m syncdb --noinput
+m loaddata config/fixtures/users.json

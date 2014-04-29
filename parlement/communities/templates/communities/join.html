@@ -1,0 +1,11 @@
+<h3>Join {{ community }}</h3>
+<form method="post" action=''>
+{% csrf_token %}
+<p>{{ community.join_help }}</p>
+<input
+    type='email'
+    name='email'
+    value='{{ email }}'
+    />
+<input type="submit" value="Join"/>
+</form>
