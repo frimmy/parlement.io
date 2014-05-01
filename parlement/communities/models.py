@@ -13,8 +13,19 @@ class Community(models.Model):
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
     email_regex = models.CharField(max_length=400)
     join_help = models.CharField(max_length=300)
-    members_emails = models.TextField(blank=True) #List of already members emails
+    members_emails = models.TextField(blank=True)
+
+    def add_user(self, user):
+        self.members.add(user)
+        self.save()
+
+    def add_email(self, email):
+        self.members_emails += email+'\n'
+        self.save()
     
+    def mail_can_join(self, mail):
+        return mail not in self.members_emails
+
     def is_email_valid(self, email):
         return re.match(self.email_regex, email) != None 
 
@@ -29,8 +40,9 @@ class Community(models.Model):
 
 class JoinRequest(models.Model):
     community = models.ForeignKey(Community)
-    token = models.CharField(max_length=40, unique=True)
+    token = models.CharField(max_length=40, unique=True, primary_key=True)
     hashed_email = models.CharField(max_length=400)
+    date = models.DateField(auto_now=True)
 
     def generate(community, mail):
         token = JoinRequest()
@@ -39,4 +51,4 @@ class JoinRequest(models.Model):
         token.hashed_email = hashlib.sha1(mail.encode('utf-8')).hexdigest()
         token.save()
         return token
-    class Meta:
+

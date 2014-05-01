@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h3>Join {{ community }}</h3>
 <form method="post" action=''>
 {% csrf_token %}
@@ -9,3 +12,4 @@
     />
 <input type="submit" value="Join"/>
 </form>
+{% endblock %}

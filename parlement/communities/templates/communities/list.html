@@ -1,6 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h1>All communities</h1>
 <ul>
 {% for community in communities %}
 <li><a href="{{ community.get_absolute_url }}">{{ community }}</a></li>
 {% endfor %}
 <ul/>
+{% endblock %}
