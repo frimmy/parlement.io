@@ -1,0 +1,10 @@
+Release v0.1: The demo
+_ User can create an account
+_ User can join a commmunity by mail
+_ User can discuss inside the community via a reddit-like discussion system
+
+Not in this release:
+_ User created communities
+_ Discussion topics (subreddit)
+_ Vote
+
