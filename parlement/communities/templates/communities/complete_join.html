@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Comfirmation to join {{ community }}</h3>
+<form method="post" action=''>
+{% csrf_token %}
+{% if user.is_authenticated %}
+<h4>Join as {{ user.username }}</h4>
+<input type="submit" name="use_account" value="Join as {{ user.username }}"/>
+{% endif %}
+<h4>Join with a new user</h4>
+    <input type="submit" name="new_account" value="Join as a new user" />
+</form>
+{% endblock %}

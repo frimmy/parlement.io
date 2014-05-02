@@ -9,4 +9,5 @@ urlpatterns = patterns('communities.views',
     ))),
     
     url(r'^complete_join_request/(?P<token>[a-f0-9]{40})/$', 'validate_join',name='validate_join'),
+
 )

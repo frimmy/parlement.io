@@ -42,10 +42,12 @@ def join(req, name):
 def validate_join(req, token):
     request = JoinRequest.objects.get(token=token)
     community = request.community
-    if community.mail_can_join(request.hashed_email) and req.user not in community.members.all():
-        community.add_user(req.user)
-        community.add_email(request.hashed_email)
-        messages.add_message(req, messages.SUCCESS, 'You joined %s' % community.name)
-    else:
-        messages.add_message(req, messages.WARNING, 'You already joined %s' % community.name)
-    return HttpResponseRedirect(reverse('communities:view',args=(community.name,)))
+    if req.method == "POST":
+        if community.mail_can_join(request.hashed_email) and req.user not in community.members.all():
+            community.add_user(req.user)
+            community.add_email(request.hashed_email)
+            messages.add_message(req, messages.SUCCESS, 'You joined %s' % community.name)
+        else:
+            messages.add_message(req, messages.WARNING, 'You already joined %s' % community.name)
+        return HttpResponseRedirect(reverse('communities:view',args=(community.name,)))
+    return render(req,'communities/complete_join.html', {'community':community})
